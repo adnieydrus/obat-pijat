@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 2, 2018 12:18:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojo.Register" table="register" catalog="pijat" optimistic-lock="version">
+        <id name="registerId" type="java.lang.Integer">
+            <column name="registerID" />
+            <generator class="identity" />
+        </id>
+        <property name="registerName" type="string">
+            <column name="registerName" length="100" not-null="true" />
+        </property>
+        <property name="registerAddress" type="string">
+            <column name="registerAddress" length="200" not-null="true" />
+        </property>
+        <property name="registerEmail" type="string">
+            <column name="registerEmail" length="50" not-null="true" />
+        </property>
+        <property name="registerContact" type="string">
+            <column name="registerContact" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

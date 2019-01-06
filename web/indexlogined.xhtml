@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Home</title>
+    </h:head>
+    <h:body>
+        <h:form>
+        <div class="container" style="height: 345px; margin-top: 4.8%; margin-bottom: 10%;">
+            <h1>Hello Admin <h:outputLabel value="#{admin.adminName}" ></h:outputLabel></h1><br/>
+            <p>
+                <h:commandButton class="btn navbar-btn btn-danger" value="Logout now!" style="width: 200px;" action="index?faces-redirect=true"/>
+            </p>
+        </div>
+        </h:form>
+        <h:form>
+        </h:form>
+    </h:body>
+</html>
+

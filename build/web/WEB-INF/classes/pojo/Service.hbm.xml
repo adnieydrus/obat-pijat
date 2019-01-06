@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 2, 2018 12:18:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojo.Service" table="service" catalog="pijat" optimistic-lock="version">
+        <id name="serviceId" type="java.lang.Integer">
+            <column name="ServiceID" />
+            <generator class="identity" />
+        </id>
+        <property name="admin" type="java.lang.Integer">
+            <column name="AdminID" not-null="true" />
+        </property>
+        <property name="serviceName" type="string">
+            <column name="ServiceName" length="100" not-null="true" />
+        </property>
+        <property name="serviceImage" type="string">
+            <column name="ServiceImage" length="150" not-null="true" />
+        </property>
+        <property name="serviceDesc" type="string">
+            <column name="ServiceDesc" length="300" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

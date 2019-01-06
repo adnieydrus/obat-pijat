@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 2, 2018 12:18:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojo.Crew" table="crew" catalog="pijat" optimistic-lock="version">
+        <id name="crewId" type="java.lang.Integer">
+            <column name="CrewID" />
+            <generator class="identity" />
+        </id>
+        <property name="admin" type="java.lang.Integer">
+            <column name="AdminID" not-null="true" />
+        </property>
+        <property name="crewName" type="string">
+            <column name="CrewName" length="100" not-null="true" />
+        </property>
+        <property name="crewImage" type="string">
+            <column name="CrewImage" length="150" not-null="true" />
+        </property>
+        <property name="crewDesc" type="string">
+            <column name="CrewDesc" length="300" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

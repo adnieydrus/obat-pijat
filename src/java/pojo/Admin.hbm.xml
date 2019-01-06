@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 2, 2018 12:18:13 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojo.Admin" table="admin" catalog="pijat" optimistic-lock="version">
+        <id name="adminId" type="java.lang.Integer">
+            <column name="AdminID" />
+            <generator class="identity" />
+        </id>
+        <property name="adminName" type="string">
+            <column name="AdminName" length="150" not-null="true" />
+        </property>
+        <property name="adminEmail" type="string">
+            <column name="AdminEmail" length="100" not-null="true" />
+        </property>
+        <property name="adminContact" type="string">
+            <column name="AdminContact" length="20" not-null="true" />
+        </property>
+        <property name="adminUsername" type="string">
+            <column name="AdminUsername" length="50" not-null="true" />
+        </property>
+        <property name="adminPassword" type="string">
+            <column name="AdminPassword" length="50" not-null="true" />
+        </property>
+        <property name="adminStatus" type="string">
+            <column name="AdminStatus" length="20" not-null="true" />
+        </property>
+        <set name="services" table="service" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AdminID" not-null="true" />
+            </key>
+            <one-to-many class="pojo.Service" />
+        </set>
+        <set name="crews" table="crew" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AdminID" not-null="true" />
+            </key>
+            <one-to-many class="pojo.Crew" />
+        </set>
+    </class>
+</hibernate-mapping>

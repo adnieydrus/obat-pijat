@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RegisterDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;obat_pijat&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">dao</a> &gt; <span class="el_source">RegisterDAO.java</span></div><h1>RegisterDAO.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dao;
+
+import pojo.Register;
+import util.HibernateUtil;
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+/**
+ *
+ * @author Windows 10 Pro
+ */
+<span class="fc" id="L20">public class RegisterDAO {</span>
+    public void nambah(Register kryObj){
+<span class="fc" id="L22">         Transaction transObj = null;</span>
+<span class="fc" id="L23">         Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+        
+        try{
+<span class="fc" id="L26">            transObj = sessionObj.beginTransaction();</span>
+<span class="fc" id="L27">            sessionObj.save(kryObj);</span>
+<span class="fc" id="L28">            transObj.commit();</span>
+<span class="fc" id="L29">            System.out.println(&quot;Berhasil memasukkan data baru..&quot;);</span>
+<span class="nc" id="L30">        }catch(Exception ex){</span>
+<span class="nc" id="L31">            ex.printStackTrace();</span>
+<span class="nc" id="L32">            transObj.rollback();</span>
+<span class="nc" id="L33">            System.out.println(&quot;gagal&quot;);</span>
+        }finally{
+<span class="pc" id="L35">            sessionObj.close();</span>
+<span class="pc" id="L36">        }</span>
+<span class="fc" id="L37">    }</span>
+    
+    public List&lt;Register&gt; getAllRegister()
+        {
+<span class="fc" id="L41">        Transaction transObj = null;</span>
+<span class="fc" id="L42">        Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+<span class="fc" id="L43">        List&lt;Register&gt; listMhs = new ArrayList();</span>
+        
+        try
+        {
+<span class="fc" id="L47">              transObj = sessionObj.beginTransaction();</span>
+<span class="fc" id="L48">              Query query = sessionObj.createQuery(&quot;from Register&quot;);</span>
+              
+<span class="fc" id="L50">              listMhs =  query.list();</span>
+              
+<span class="fc" id="L52">              transObj.commit();</span>
+        }
+<span class="nc" id="L54">        catch(Exception ex)</span>
+        {
+<span class="nc" id="L56">              ex.printStackTrace();</span>
+<span class="nc" id="L57">              transObj.rollback();</span>
+        }
+        finally
+        {
+<span class="pc" id="L61">              sessionObj.flush();</span>
+<span class="pc" id="L62">              sessionObj.close();</span>
+<span class="pc" id="L63">        }</span>
+<span class="fc" id="L64">        return listMhs;</span>
+        }
+    
+    public List&lt;Register&gt; getIDRegister()
+        {
+<span class="nc" id="L69">            Transaction transObj = null;</span>
+<span class="nc" id="L70">            Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+<span class="nc" id="L71">            List&lt;Register&gt; listStudent = new ArrayList();</span>
+            
+            try
+            {
+<span class="nc" id="L75">                transObj = sessionObj.beginTransaction();</span>
+<span class="nc" id="L76">                Query query = sessionObj.createQuery(&quot;select RegisterId from Register&quot;);</span>
+                
+<span class="nc" id="L78">                listStudent = query.list();</span>
+            }
+<span class="nc" id="L80">            catch(Exception ex)</span>
+            {
+<span class="nc" id="L82">                ex.printStackTrace();</span>
+<span class="nc" id="L83">                transObj.rollback();</span>
+            }
+            finally
+            {
+<span class="nc" id="L87">                sessionObj.flush();</span>
+<span class="nc" id="L88">                sessionObj.close();</span>
+<span class="nc" id="L89">            }</span>
+            
+            
+<span class="nc" id="L92">            return listStudent;</span>
+        }
+        
+        public List&lt;Register&gt; getRegisterByID(Integer selectedID)
+        {
+<span class="fc" id="L97">            Transaction transObj = null;</span>
+<span class="fc" id="L98">            Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+<span class="fc" id="L99">            List listStudent = new ArrayList();</span>
+            
+            try
+            {
+<span class="fc" id="L103">                transObj = sessionObj.beginTransaction();</span>
+                
+<span class="fc" id="L105">                Query query = sessionObj.createQuery(&quot;from Register where registerId = :id&quot;);</span>
+<span class="fc" id="L106">                query.setInteger(&quot;id&quot;, selectedID);</span>
+                
+<span class="fc" id="L108">                listStudent = query.list();</span>
+            }
+<span class="nc" id="L110">            catch(Exception ex)</span>
+            {
+<span class="nc" id="L112">                ex.printStackTrace();</span>
+<span class="nc" id="L113">                transObj.rollback();</span>
+            }
+            finally
+            {
+<span class="pc" id="L117">                sessionObj.flush();</span>
+<span class="pc" id="L118">                sessionObj.close();</span>
+<span class="pc" id="L119">            }</span>
+            
+            
+<span class="fc" id="L122">            return listStudent;</span>
+        }
+        
+        public void updateMahasiswa(Register mhsObj)
+        {
+<span class="fc" id="L127">        Transaction transObj = null;</span>
+<span class="fc" id="L128">        Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+        
+        try
+        {
+<span class="fc" id="L132">              transObj = sessionObj.beginTransaction();</span>
+<span class="fc" id="L133">              sessionObj.update(mhsObj);</span>
+              
+<span class="fc" id="L135">              System.out.println(&quot;Berhasil mengupdate data baru..&quot;);</span>
+              
+<span class="fc" id="L137">              transObj.commit();</span>
+        }
+<span class="nc" id="L139">        catch(Exception ex)</span>
+        {
+<span class="nc" id="L141">              ex.printStackTrace();</span>
+<span class="nc" id="L142">              transObj.rollback();</span>
+        }
+        finally
+        {
+<span class="pc" id="L146">              sessionObj.flush();</span>
+<span class="pc" id="L147">              sessionObj.close();</span>
+<span class="pc" id="L148">        }</span>
+<span class="fc" id="L149">    }</span>
+        
+        public void deleteMahasiswa(Register mhsObj)
+        {
+<span class="fc" id="L153">        Transaction transObj = null;</span>
+<span class="fc" id="L154">        Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+        
+        try
+        {
+<span class="fc" id="L158">              transObj = sessionObj.beginTransaction();</span>
+<span class="fc" id="L159">              sessionObj.delete(mhsObj);</span>
+              
+<span class="fc" id="L161">              System.out.println(&quot;Berhasil mengupdate data baru..&quot;);</span>
+              
+<span class="fc" id="L163">              transObj.commit();</span>
+        }
+<span class="nc" id="L165">        catch(Exception ex)</span>
+        {
+<span class="nc" id="L167">              ex.printStackTrace();</span>
+<span class="nc" id="L168">              transObj.rollback();</span>
+        }
+        finally
+        {
+<span class="pc" id="L172">              sessionObj.flush();</span>
+<span class="pc" id="L173">              sessionObj.close();</span>
+<span class="pc" id="L174">        }</span>
+<span class="fc" id="L175">    }</span>
+        
+    public Register GetContactLastRecord(){
+<span class="fc" id="L178">        Transaction transObj = null;</span>
+<span class="fc" id="L179">        Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+<span class="fc" id="L180">        Register ctc = null;</span>
+        try{
+<span class="fc" id="L182">            transObj = sessionObj.beginTransaction();</span>
+<span class="fc" id="L183">            Query q = sessionObj.createQuery(&quot;from Register order by RegisterId desc&quot;);</span>
+<span class="fc" id="L184">            q.setMaxResults(1);</span>
+<span class="fc" id="L185">            ctc= (Register) q.uniqueResult();</span>
+<span class="fc" id="L186">            transObj.commit();</span>
+<span class="nc" id="L187">        }catch (Exception ex){</span>
+<span class="nc" id="L188">            ex.printStackTrace();</span>
+<span class="nc" id="L189">            transObj.rollback();</span>
+<span class="nc" id="L190">            System.out.println(ex);</span>
+        }finally{
+<span class="pc" id="L192">            sessionObj.flush();</span>
+<span class="pc" id="L193">            sessionObj.close();</span>
+<span class="pc" id="L194">        }</span>
+<span class="fc" id="L195">        return ctc;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>Manipulate Form</h1>
+        
+        <h:form>
+            Select Student ID:
+            <h:selectOneMenu value="#{contactus.selectedID}">
+                <f:selectItems value="#{contactus.allIDContactUs}"/>
+                <f:ajax event="change" render="id nama email pesan"
+                        listener="#{contactus.ambilContacUsByID()}"
+                />
+            </h:selectOneMenu>
+                                                                                                                                
+            <br></br>
+            
+            ID <h:inputText value="#{contactus.contactId}" id="id" readonly="true"/><br></br>
+            
+            Name <h:inputText value="#{contactus.contactName}" id="nama"/><br></br>
+            
+            Email <h:inputText value="#{contactus.contactEmail}" id="email"/><br></br>
+            
+            Message <h:inputText value="#{contactus.contactMessage}" id="pesan"/><br></br>
+            
+            <h:commandButton value="Update" action="#{contactus.updateMahasiswa()}"/>
+            <h:commandButton value="Delete" action="#{contactus.deleteMahasiswa()}"/>
+            
+            <br></br>
+            
+            <h:outputText value="#{contactus.msg}"/>
+            
+            <br></br>
+            
+        </h:form>
+        
+        
+        <br/><br/><br/>
+        <h1>Data Contact Us</h1><br/>
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr style="width:100%;">
+                    <td width="1%">#</td>
+                    <td width="20%">Nama</td>
+                    <td width="20%">Email</td>
+                    <td width="20%">Message</td>
+                </tr>
+            </thead>
+            <tbody>
+                <h:form>
+                    <ui:repeat value="#{contactus.lihatDataContactUs()}" var="item">
+                        <tr>
+                            <td>#{item.contactId}</td>
+                            <td>#{item.contactName}</td>
+                            <td>#{item.contactEmail}</td>
+                            <td>#{item.contactMessage}</td>  
+                        </tr>
+                    </ui:repeat>
+                </h:form>
+            </tbody>
+        </table>
+    </h:body>
+</html>
+

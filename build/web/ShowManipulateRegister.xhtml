@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>Manipulate Form</h1>
+        
+        <h:form>
+            Select Student ID:
+            <h:selectOneMenu value="#{register.selectedId}">
+                <f:selectItems value="#{register.allIDRegister}"/>
+                <f:ajax event="change" render="id nama alamat email contact"
+                        listener="#{register.ambilRegisterByID()}"
+                />
+            </h:selectOneMenu>
+                                                                                                                                
+            <br></br>
+            
+            ID <h:inputText value="#{register.registerId}" id="id" readonly="true"/><br></br>
+            Name <h:inputText value="#{register.registerName}" id="nama"/><br></br>
+            Address <h:inputText value="#{register.registerAddress}" id="alamat"/><br></br>
+            Email <h:inputText value="#{register.registerEmail}" id="email"/><br></br>
+            Contact <h:inputText value="#{register.registerContact}" id="contact"/><br></br>
+            <br></br>
+            
+            <h:commandButton value="Update" action="#{register.updateMahasiswa()}"/>
+            <h:commandButton value="Delete" action="#{register.deleteMahasiswa()}"/>
+            
+            <br></br>
+            
+            <h:outputText value="#{register.msg}"/>
+            
+            <br></br>
+            
+        </h:form>
+        
+        
+        <br/><br/><br/>
+        <h1>Data Contact Us</h1><br/>
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr style="width:100%;">
+                    <td width="1%">#</td>
+                    <td width="12%">Name</td>
+                    <td width="12%">Address</td>
+                    <td width="12%">Email</td>
+                    <td width="12%">Contact</td>
+                </tr>
+            </thead>
+            <tbody>
+                <h:form>
+                    <ui:repeat value="#{register.lihatDataRegister()}" var="item">
+                        <tr>
+                            <td>#{item.registerId}</td>
+                            <td>#{item.registerName}</td>
+                            <td>#{item.registerAddress}</td>
+                            <td>#{item.registerEmail}</td>  
+                            <td>#{item.registerContact}</td>   
+                        </tr>
+                    </ui:repeat>
+                </h:form>
+            </tbody>
+        </table>
+    </h:body>
+</html>
+

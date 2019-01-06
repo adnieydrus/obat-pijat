@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ServiceDAO.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;obat_pijat&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">dao</a> &gt; <span class="el_source">ServiceDAO.java</span></div><h1>ServiceDAO.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dao;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import pojo.Service;
+import util.HibernateUtil;
+
+/**
+ *
+ * @author Windows 10 Pro
+ */
+<span class="fc" id="L21">public class ServiceDAO {</span>
+<span class="fc" id="L22">        private static SessionFactory sf = HibernateUtil.getSessionFactory();</span>
+	private static Transaction tx;
+
+	public void addNewService(Service service) {
+		try {
+<span class="fc" id="L27">			Session session = sf.openSession();</span>
+<span class="fc" id="L28">			tx = session.beginTransaction();</span>
+<span class="fc" id="L29">			session.save(service);</span>
+<span class="fc" id="L30">			tx.commit();</span>
+<span class="nc" id="L31">		} catch (Exception e) {</span>
+<span class="nc" id="L32">			tx.rollback();</span>
+<span class="nc" id="L33">			System.out.println(e);</span>
+<span class="fc" id="L34">                }</span>
+<span class="fc" id="L35">	}</span>
+        public List&lt;Service&gt; getAllService() {
+<span class="fc" id="L37">            Transaction tx = null;</span>
+<span class="fc" id="L38">         Session session = HibernateUtil.getSessionFactory().openSession();</span>
+<span class="fc" id="L39">		List&lt;Service&gt; servicelist = new ArrayList&lt;Service&gt;();</span>
+		try {
+<span class="fc" id="L41">			tx = session.beginTransaction();</span>
+<span class="fc" id="L42">			Query q = session.createQuery(&quot;from Service&quot;);</span>
+<span class="fc" id="L43">			servicelist = q.list();</span>
+<span class="fc" id="L44">			tx.commit();</span>
+<span class="fc" id="L45">			session.close();</span>
+<span class="nc" id="L46">		} catch (Exception e) {</span>
+<span class="nc" id="L47">			tx.rollback();</span>
+<span class="nc" id="L48">			System.out.println(e);</span>
+<span class="fc" id="L49">		}</span>
+<span class="fc" id="L50">		return servicelist;</span>
+	}
+        
+        public List&lt;Service&gt; getIDService()
+        {
+<span class="fc" id="L55">            Transaction transObj = null;</span>
+<span class="fc" id="L56">            Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+<span class="fc" id="L57">            List&lt;Service&gt; listStudent = new ArrayList();</span>
+            
+            try
+            {
+<span class="fc" id="L61">                transObj = sessionObj.beginTransaction();</span>
+<span class="fc" id="L62">                Query query = sessionObj.createQuery(&quot;select serviceId from Service&quot;);</span>
+                
+<span class="fc" id="L64">                listStudent = query.list();</span>
+            }
+<span class="nc" id="L66">            catch(Exception ex)</span>
+            {
+<span class="nc" id="L68">                ex.printStackTrace();</span>
+<span class="nc" id="L69">                transObj.rollback();</span>
+            }
+            finally
+            {
+<span class="pc" id="L73">                sessionObj.flush();</span>
+<span class="pc" id="L74">                sessionObj.close();</span>
+<span class="pc" id="L75">            }</span>
+            
+            
+<span class="fc" id="L78">            return listStudent;</span>
+        }
+        
+        public List&lt;Service&gt; getServiceByID(int selectedID)
+        {
+<span class="fc" id="L83">            Transaction transObj = null;</span>
+<span class="fc" id="L84">            Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+<span class="fc" id="L85">            List listStudent = new ArrayList();</span>
+            
+            try
+            {
+<span class="fc" id="L89">                transObj = sessionObj.beginTransaction();</span>
+                
+<span class="fc" id="L91">                Query query = sessionObj.createQuery(&quot;from Service where ServiceId = :id&quot;);</span>
+<span class="fc" id="L92">                query.setInteger(&quot;id&quot;, selectedID);</span>
+                
+<span class="fc" id="L94">                listStudent = query.list();</span>
+            }
+<span class="nc" id="L96">            catch(Exception ex)</span>
+            {
+<span class="nc" id="L98">                ex.printStackTrace();</span>
+<span class="nc" id="L99">                transObj.rollback();</span>
+            }
+            finally
+            {
+<span class="pc" id="L103">                sessionObj.flush();</span>
+<span class="pc" id="L104">                sessionObj.close();</span>
+<span class="pc" id="L105">            }</span>
+            
+            
+<span class="fc" id="L108">            return listStudent;</span>
+        }
+        
+        public void updateMahasiswa(Service mhsObj)
+        {
+<span class="fc" id="L113">        Transaction transObj = null;</span>
+<span class="fc" id="L114">        Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+        
+        try
+        {
+<span class="fc" id="L118">              transObj = sessionObj.beginTransaction();</span>
+<span class="fc" id="L119">              sessionObj.update(mhsObj);</span>
+              
+<span class="fc" id="L121">              System.out.println(&quot;Berhasil mengupdate data baru..&quot;);</span>
+              
+<span class="fc" id="L123">              transObj.commit();</span>
+        }
+<span class="nc" id="L125">        catch(Exception ex)</span>
+        {
+<span class="nc" id="L127">              ex.printStackTrace();</span>
+<span class="nc" id="L128">              transObj.rollback();</span>
+        }
+        finally
+        {
+<span class="pc" id="L132">              sessionObj.flush();</span>
+<span class="pc" id="L133">              sessionObj.close();</span>
+<span class="pc" id="L134">        }</span>
+<span class="fc" id="L135">    }</span>
+        
+        public void deleteMahasiswa(Service mhsObj)
+        {
+<span class="fc" id="L139">        Transaction transObj = null;</span>
+<span class="fc" id="L140">        Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+        
+        try
+        {
+<span class="fc" id="L144">              transObj = sessionObj.beginTransaction();</span>
+<span class="fc" id="L145">              sessionObj.delete(mhsObj);</span>
+              
+<span class="fc" id="L147">              System.out.println(&quot;Berhasil mengahapus data baru..&quot;);</span>
+              
+<span class="fc" id="L149">              transObj.commit();</span>
+        }
+<span class="nc" id="L151">        catch(Exception ex)</span>
+        {
+<span class="nc" id="L153">              ex.printStackTrace();</span>
+<span class="nc" id="L154">              transObj.rollback();</span>
+        }
+        finally
+        {
+<span class="pc" id="L158">              sessionObj.flush();</span>
+<span class="pc" id="L159">              sessionObj.close();</span>
+<span class="pc" id="L160">        }</span>
+<span class="fc" id="L161">    }</span>
+        
+        public Service GetContactLastRecord(){
+<span class="fc" id="L164">        Transaction transObj = null;</span>
+<span class="fc" id="L165">        Session sessionObj = HibernateUtil.getSessionFactory().openSession();</span>
+<span class="fc" id="L166">        Service ctc = null;</span>
+        try{
+<span class="fc" id="L168">            transObj = sessionObj.beginTransaction();</span>
+<span class="fc" id="L169">            Query q = sessionObj.createQuery(&quot;from Service order by ServiceId desc&quot;);</span>
+<span class="fc" id="L170">            q.setMaxResults(1);</span>
+<span class="fc" id="L171">            ctc= (Service) q.uniqueResult();</span>
+<span class="fc" id="L172">            transObj.commit();</span>
+<span class="nc" id="L173">        }catch (Exception ex){</span>
+<span class="nc" id="L174">            ex.printStackTrace();</span>
+<span class="nc" id="L175">            transObj.rollback();</span>
+<span class="nc" id="L176">            System.out.println(ex);</span>
+        }finally{
+<span class="pc" id="L178">            sessionObj.flush();</span>
+<span class="pc" id="L179">            sessionObj.close();</span>
+<span class="pc" id="L180">        }</span>
+<span class="fc" id="L181">        return ctc;</span>
+    }
+        
+        
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

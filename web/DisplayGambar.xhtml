@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr style="width:100%;">
+                    <td width="1%">#</td>
+                    <td width="12%">Name</td>
+                    <td width="12%">Address</td>
+                    <td width="12%">Email</td>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <h:form>
+                    <ui:repeat value="#{crew.lihatDataCrew()}" var="item">
+                        <tr>
+                            <td>#{item.crewId}</td>
+                            <td>#{item.crewName}</td>
+                            <td>#{item.crewImage}</td>
+                            <td>#{item.crewDesc}</td>     
+                        </tr>
+                    </ui:repeat>
+                </h:form>
+            </tbody>
+        </table>
+    </h:body>
+</html>
+

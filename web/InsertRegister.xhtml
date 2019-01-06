@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h1>Register</h1>
+            <h1>Name</h1>
+            <h:inputText value="#{register.registerName}"/>
+            <h1>Address</h1>
+            <h:inputTextarea value="#{register.registerAddress}"/>
+            <h1>Email</h1>
+            <h:inputText value="#{register.registerEmail}"/>
+            <h1>Contact</h1>
+            <h:inputText value="#{register.registerContact}"/>
+            <br/><br/>
+            <h:commandButton value="Submit" action="#{register.simpanData()}"/>
+            <br/><br/>
+            <h:outputText value="#{register.msg}" />
+        </h:form>
+    </h:body>
+</html>
+
